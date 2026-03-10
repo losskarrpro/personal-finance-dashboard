@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Dashboard</title>
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="icon-wallet"></i> Personal Finance Dashboard</h1>
+                <p class="tagline">Suivez vos finances en toute simplicité</p>
+            </div>
+            <div class="header-actions">
+                <button id="exportBtn" class="btn btn-secondary" title="Exporter les données"><i class="icon-download"></i> Exporter</button>
+                <button id="resetBtn" class="btn btn-danger" title="Réinitialiser les données"><i class="icon-reset"></i> Réinitialiser</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-grid">
+            <section class="card card-transactions">
+                <div class="card-header">
+                    <h2><i class="icon-list"></i> Transactions</h2>
+                    <button id="addTransactionBtn" class="btn btn-primary"><i class="icon-plus"></i> Ajouter</button>
+                </div>
+                <div class="card-body">
+                    <div class="transaction-filters">
+                        <select id="filterType" class="form-select">
+                            <option value="all">Toutes les transactions</option>
+                            <option value="income">Revenus</option>
+                            <option value="expense">Dépenses</option>
+                        </select>
+                        <select id="filterCategory" class="form-select">
+                            <option value="all">Toutes catégories</option>
+                        </select>
+                        <input type="month" id="filterMonth" class="form-input">
+                    </div>
+                    <div class="table-container">
+                        <table class="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Catégorie</th>
+                                    <th>Type</th>
+                                    <th>Montant</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionsTableBody">
+                                <!-- Les transactions seront insérées ici dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="transaction-summary">
+                        <p>Total Revenus: <span id="totalIncome" class="amount income">0.00 €</span></p>
+                        <p>Total Dépenses: <span id="totalExpense" class="amount expense">0.00 €</span></p>
+                        <p>Solde: <span id="balance" class="amount balance">0.00 €</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card card-charts">
+                <div class="card-header">
+                    <h2><i class="icon-chart"></i> Tableau de Bord</h2>
+                    <div class="chart-controls">
+                        <select id="chartPeriod" class="form-select">
+                            <option value="month">Ce mois</option>
+                            <option value="year">Cette année</option>
+                            <option value="all">Tout</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <h3>Revenus vs Dépenses</h3>
+                            <canvas id="incomeExpenseChart"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <h3>Dépenses par Catégorie</h3>
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                        <div class="chart-wrapper full-width">
+                            <h3>Évolution Mensuelle</h3>
+                            <canvas id="monthlyTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card card-statistics">
+                <div class="card-header">
+                    <h2><i class="icon-stats"></i> Statistiques</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid" id="statisticsContainer">
+                        <!-- Les statistiques seront insérées ici dynamiquement -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="card card-goals">
+                <div class="card-header">
+                    <h2><i class="icon-target"></i> Objectifs d'Épargne</h2>
+                    <button id="addGoalBtn" class="btn btn-primary"><i class="icon-plus"></i> Ajouter</button>
+                </div>
+                <div class="card-body">
+                    <div class="goals-list" id="goalsList">
+                        <!-- Les objectifs seront insérées ici dynamiquement -->
+                    </div>
+                    <div class="goals-summary">
+                        <p>Épargne Totale: <span id="totalSavings" class="amount income">0.00 €</span></p>
+                        <p>Objectif Total: <span id="totalGoal" class="amount">0.00 €</span></p>
+                        <p>Progression: <span id="goalProgress" class="amount">0%</span></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Ajouter une Transaction</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="transactionForm">
+                    <input type="hidden" id="transactionId">
+                    <div class="form-group">
+                        <label for="transactionDate">Date</label>
+                        <input type="date" id="transactionDate" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionDescription">Description</label>
+                        <input type="text" id="transactionDescription" class="form-input" placeholder="Ex: Salaire, Courses..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionAmount">Montant (€)</label>
+                        <input type="number" id="transactionAmount" class="form-input" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionType">Type</label>
+                        <select id="transactionType" class="form-select" required>
+                            <option value="income">Revenu</option>
+                            <option value="expense">Dépense</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionCategory">Catégorie</label>
+                        <select id="transactionCategory" class="form-select" required>
+                            <!-- Les catégories seront insérées ici dynamiquement -->
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="goalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter un Objectif</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="goalForm">
+                    <input type="hidden" id="goalId">
+                    <div class="form-group">
+                        <label for="goalName">Nom de l'objectif</label>
+                        <input type="text" id="goalName" class="form-input" placeholder="Ex: Vacances, Voiture..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goalTarget">Montant cible (€)</label>
+                        <input type="number" id="goalTarget" class="form-input" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goalDeadline">Date limite</label>
+                        <input type="date" id="goalDeadline" class="form-input" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>Personal Finance Dashboard &copy; <span id="currentYear"></span> - Suivi de vos finances personnelles</p>
+            <p class="footer-links">
+                <a href="#" id="aboutLink">À propos</a> |
+                <a href="#" id="helpLink">Aide</a> |
+                <a href="#" id="privacyLink">Confidentialité</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/transaction.js"></script>
+    <script src="js/category-manager.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/goals-manager.js"></script>
+    <script src="js/chart-manager.js"></script>
+    <script src="js/export-manager.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
