@@ -1,0 +1,98 @@
+{
+  "categories": [
+    {
+      "id": "income",
+      "name": "Revenus",
+      "type": "income",
+      "color": "#4CAF50",
+      "icon": "💰",
+      "subcategories": [
+        { "id": "salary", "name": "Salaire", "keywords": ["salaire", "paye", "revenu mensuel", "traitement"] },
+        { "id": "freelance", "name": "Freelance", "keywords": ["freelance", "mission", "contrat", "honoraires"] },
+        { "id": "investment", "name": "Investissements", "keywords": ["dividende", "intérêt", "rendement", "placement"] },
+        { "id": "gift", "name": "Cadeaux", "keywords": ["cadeau", "don", "présent"] },
+        { "id": "other_income", "name": "Autres revenus", "keywords": [] }
+      ]
+    },
+    {
+      "id": "expense",
+      "name": "Dépenses",
+      "type": "expense",
+      "color": "#F44336",
+      "icon": "💸",
+      "subcategories": [
+        { "id": "housing", "name": "Logement", "keywords": ["loyer", "hypothèque", "électricité", "gaz", "eau", "internet", "téléphone", "assurance habitation"] },
+        { "id": "food", "name": "Alimentation", "keywords": ["supermarché", "épicerie", "restaurant", "livraison", "café", "fast-food", "marché"] },
+        { "id": "transport", "name": "Transport", "keywords": ["essence", "carburant", "transport en commun", "taxi", "uber", "vignette", "assurance auto", "entretien"] },
+        { "id": "health", "name": "Santé", "keywords": ["médecin", "pharmacie", "mutuelle", "dentiste", "optique", "hôpital"] },
+        { "id": "leisure", "name": "Loisirs", "keywords": ["cinéma", "concert", "sport", "voyage", "vacances", "musée", "abonnement", "jeux"] },
+        { "id": "shopping", "name": "Shopping", "keywords": ["vêtements", "électronique", "meubles", "livres", "cosmétiques", "bricolage"] },
+        { "id": "education", "name": "Éducation", "keywords": ["formation", "cours", "livres scolaires", "frais scolaires", "université"] },
+        { "id": "savings", "name": "Épargne", "keywords": ["épargne", "placement", "investissement", "assurance vie"] },
+        { "id": "other_expense", "name": "Autres dépenses", "keywords": [] }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "pattern": "salaire|paye|revenu mensuel|traitement",
+      "categoryId": "income",
+      "subcategoryId": "salary"
+    },
+    {
+      "pattern": "freelance|mission|contrat|honoraires",
+      "categoryId": "income",
+      "subcategoryId": "freelance"
+    },
+    {
+      "pattern": "dividende|intérêt|rendement|placement",
+      "categoryId": "income",
+      "subcategoryId": "investment"
+    },
+    {
+      "pattern": "cadeau|don|présent",
+      "categoryId": "income",
+      "subcategoryId": "gift"
+    },
+    {
+      "pattern": "loyer|hypothèque|électricité|gaz|eau|internet|téléphone|assurance habitation",
+      "categoryId": "expense",
+      "subcategoryId": "housing"
+    },
+    {
+      "pattern": "supermarché|épicerie|restaurant|livraison|café|fast-food|marché",
+      "categoryId": "expense",
+      "subcategoryId": "food"
+    },
+    {
+      "pattern": "essence|carburant|transport en commun|taxi|uber|vignette|assurance auto|entretien",
+      "categoryId": "expense",
+      "subcategoryId": "transport"
+    },
+    {
+      "pattern": "médecin|pharmacie|mutuelle|dentiste|optique|hôpital",
+      "categoryId": "expense",
+      "subcategoryId": "health"
+    },
+    {
+      "pattern": "cinéma|concert|sport|voyage|vacances|musée|abonnement|jeux",
+      "categoryId": "expense",
+      "subcategoryId": "leisure"
+    },
+    {
+      "pattern": "vêtements|électronique|meubles|livres|cosmétiques|bricolage",
+      "categoryId": "expense",
+      "subcategoryId": "shopping"
+    },
+    {
+      "pattern": "formation|cours|livres scolaires|frais scolaires|université",
+      "categoryId": "expense",
+      "subcategoryId": "education"
+    },
+    {
+      "pattern": "épargne|placement|investissement|assurance vie",
+      "categoryId": "expense",
+      "subcategoryId": "savings"
+    }
+  ]
+}
