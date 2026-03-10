@@ -1,5 +1,7 @@
 # Personal Finance Dashboard
 
+**Créé par LUMENA**
+
 ## 📊 Vue d'ensemble
 
 **Personal Finance Dashboard** est une application web moderne et responsive permettant de suivre et gérer ses finances personnelles. L'application offre une interface intuitive pour enregistrer des transactions, visualiser ses dépenses et revenus, suivre des objectifs d'épargne et analyser ses habitudes financières.
@@ -116,142 +118,105 @@ personal-finance-dashboard/
 ### Modules JavaScript
 
 #### `app.js`
-Point d'entrée principal qui initialise tous les modules et gère les événements globaux.
+Point d'entrée principal qui initialise tous les modules et coordonne l'application.
 
 #### `transaction.js`
-Classe `Transaction` avec validation et méthodes de manipulation. Gère le cycle de vie des transactions.
+Gère le cycle de vie des transactions (CRUD) et la logique métier associée.
 
 #### `storage.js`
-Abstraction du localStorage avec sérialisation/désérialisation et gestion des erreurs.
+Abstraction du localStorage avec sérialisation/désérialisation JSON et gestion des erreurs.
 
 #### `chart-manager.js`
-Configuration et mise à jour des graphiques Chart.js avec thèmes dynamiques.
+Configuration et mise à jour des graphiques Chart.js avec les données actuelles.
 
 #### `ui-manager.js`
-Gestion des interactions utilisateur, mises à jour du DOM et validation des formulaires.
+Gère les interactions utilisateur, les formulaires et les mises à jour de l'interface.
 
 #### `category-manager.js`
-Catégorisation automatique basée sur des mots-clés et apprentissage des habitudes.
+Implémente la catégorisation automatique des transactions basée sur des mots-clés.
 
 #### `statistics.js`
-Calcul des indicateurs financiers, tendances et projections.
+Calcule les statistiques financières (totaux, moyennes, tendances).
 
 #### `goals-manager.js`
-Définition et suivi des objectifs d'épargne avec notifications.
+Gère la création, le suivi et la mise à jour des objectifs d'épargne.
 
 #### `export-manager.js`
-Export CSV et PNG avec formatage personnalisé.
+Génère les fichiers CSV et PNG pour l'export des données et graphiques.
 
 #### `utils.js`
-Fonctions utilitaires : formatage de dates, devises, validation, etc.
+Fonctions utilitaires (formatage de dates, nombres, validation).
 
-## 📱 Utilisation
+## 📈 Utilisation
 
 ### Ajouter une transaction
-1. Cliquer sur le bouton "Nouvelle transaction"
-2. Remplir le formulaire :
-   - Description
-   - Montant
-   - Type (Revenu/Dépense)
-   - Catégorie (sélection automatique ou manuelle)
-   - Date
+1. Cliquer sur le bouton "+ Nouvelle transaction"
+2. Remplir le formulaire (description, montant, type, catégorie, date)
 3. Cliquer sur "Enregistrer"
 
-### Visualiser les statistiques
-- Le tableau de bord principal affiche automatiquement :
-  - Solde courant
-  - Revenus du mois
-  - Dépenses du mois
-  - Épargne mensuelle
-- Naviguer entre les onglets pour voir différents graphiques
+### Visualiser les données
+- Les graphiques se mettent à jour automatiquement
+- Utiliser les filtres pour affiner l'affichage
+- Basculer entre les vues mensuelles et annuelles
 
 ### Définir un objectif
-1. Aller dans la section "Objectifs"
-2. Cliquer sur "Nouvel objectif"
-3. Définir :
-   - Nom de l'objectif
-   - Montant cible
-   - Date limite
+1. Aller dans l'onglet "Objectifs"
+2. Cliquer sur "+ Nouvel objectif"
+3. Définir le montant cible et la date limite
 4. Suivre la progression dans le tableau de bord
 
 ### Exporter des données
-1. Aller dans la section "Export"
-2. Choisir le format :
-   - CSV pour les données brutes
-   - PNG pour les graphiques
-3. Télécharger le fichier
+1. Aller dans l'onglet "Export"
+2. Choisir le format (CSV ou PNG)
+3. Cliquer sur "Télécharger"
 
 ## 🧪 Tests
 
-L'application inclut des tests unitaires pour les fonctions critiques :
+### Tests unitaires
+Les tests unitaires sont implémentés avec Jest et couvrent les fonctionnalités principales :
 
 ```bash
-# Exécuter les tests
-# Ouvrir le fichier de test dans le navigateur
-open js/transaction.test.html
-open js/statistics.test.html
+# Lancer les tests
+npm test
 ```
 
-Les tests couvrent :
-- Validation des transactions
-- Calcul des statistiques
+### Tests couverts
+- Gestion des transactions (ajout, suppression, modification)
+- Calcul des statistiques (totaux, moyennes)
 - Catégorisation automatique
 - Persistance des données
 
-## 🔧 Personnalisation
+## 🔧 Développement
 
-### Modifier les catégories
-Éditer le fichier `data/categories.json` pour :
-- Ajouter/supprimer des catégories
-- Modifier les mots-clés de catégorisation automatique
-- Changer les couleurs des catégories
-
-### Thème personnalisé
-Modifier les variables CSS dans `css/style.css` :
-```css
-:root {
-  --primary-color: #4f46e5;
-  --secondary-color: #10b981;
-  --background-color: #f9fafb;
-  --text-color: #111827;
-}
+### Installation des dépendances
+```bash
+npm install
 ```
 
-### Ajouter de nouvelles fonctionnalités
-1. Créer un nouveau module dans `js/`
-2. L'importer dans `app.js`
-3. Ajouter l'interface utilisateur correspondante
+### Lancer en mode développement
+```bash
+npm run dev
+```
+
+### Builder pour production
+```bash
+npm run build
+```
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🤝 Contribution
 
 Les contributions sont les bienvenues ! Pour contribuer :
 
 1. Fork le projet
-2. Créer une branche (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
+2. Créer une branche (`git checkout -b feature/amélioration`)
+3. Commiter les changements (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`)
+4. Pousser la branche (`git push origin feature/amélioration`)
 5. Ouvrir une Pull Request
 
-## 🐛 Support
+## 📞 Support
 
-Pour rapporter un bug ou suggérer une amélioration :
-1. Vérifier les issues existantes
-2. Créer une nouvelle issue avec :
-   - Description détaillée
-   - Étapes pour reproduire
-   - Comportement attendu vs actuel
-   - Captures d'écran si applicable
-
-## 📞 Contact
-
-Pour toute question ou feedback :
-- Email : contact@example.com
-- Issues GitHub : [github.com/votre-username/personal-finance-dashboard/issues](https://github.com/votre-username/personal-finance-dashboard/issues)
-
----
-
-**Note** : Cette application fonctionne entièrement côté client. Les données sont stockées localement dans votre navigateur. Pensez à exporter régulièrement vos données pour éviter toute perte en cas de suppression des cookies ou du cache.
+Pour toute question ou problème, ouvrir une issue sur GitHub.
